@@ -3,6 +3,12 @@ import MenuBar from '../components/MenuBar.js'
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      detailsToDisplay: null
+    }
+  }
 
 
   render() {
@@ -13,14 +19,32 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
+    // const detailsToDisplay = <div>Hi, I'm a div!</div>
 
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar changeDisplayDetails={this.changeDisplayDetails}/>
+        {this.state.detailsToDisplay}
       </div>
     )
+  }
+
+  changeDisplayDetails = (event) => {
+    let selectedItem = event.target.id
+    // Array.from(event.target.parentElement.children).forEach(child => child.className = "item")
+    if (selectedItem === "profile") {
+      event.target.className = "item active"
+      this.setState({detailsToDisplay: <Profile />})
+    } else if (selectedItem === "photo") {
+      event.target.className = "item active"
+      this.setState({detailsToDisplay: <Photos />})
+    } else if (selectedItem === "cocktail") {
+      event.target.className = "item active"
+      this.setState({detailsToDisplay: <Cocktails />})
+    } else if (selectedItem === "pokemon") {
+      event.target.className = "item active"
+      this.setState({detailsToDisplay: <Pokemon />})
+    }
   }
 
 }
